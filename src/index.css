@@ -1,0 +1,953 @@
+/* ==========================================================
+   Villa Peñas · Identidad de la página oficial (crema y café)
+   + bosque y dorado + turquesa de piscina y durazno
+   Estilo: burbujas de vidrio con profundidad
+   ========================================================== */
+:root {
+  --crema: #f4efe6;
+  --crema-clara: #fbf8f2;
+  --cafe: #2b1e16;
+  --cafe-suave: #6b5a4c;
+  --dorado: #a8792b;
+  --dorado-claro: #d2a65a;
+  --bosque: #1d3527;
+  --bosque-claro: #2f5240;
+  --turquesa: #2bb3a3;
+  --durazno: #e2a483;
+  --error: #b42318;
+
+  --degradado-dorado: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+
+  /* Vidrio claro (sobre fondo crema) */
+  --vidrio: rgba(255, 255, 255, 0.55);
+  --vidrio-fuerte: rgba(255, 255, 255, 0.72);
+  --vidrio-borde: rgba(255, 255, 255, 0.85);
+  --vidrio-desenfoque: blur(18px) saturate(160%);
+  --vidrio-sombra:
+    inset 0 1px 0 #ffffff, inset 0 -1px 0 rgba(43, 30, 22, 0.06),
+    0 22px 44px -22px rgba(43, 30, 22, 0.4);
+
+  /* Vidrio oscuro (dentro del encabezado verde) */
+  --vidrio-oscuro: rgba(255, 255, 255, 0.08);
+  --vidrio-oscuro-borde: rgba(255, 255, 255, 0.18);
+
+  /* Curva de movimiento suave tipo iOS */
+  --suave: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --letra: 'Geist', 'Segoe UI', system-ui, sans-serif;
+  --letra-serif: 'Newsreader', Georgia, serif;
+  --letra-mono: 'Geist Mono', ui-monospace, Consolas, monospace;
+
+  font-family: var(--letra);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--cafe);
+  background: var(--crema);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fondo fijo en su propia capa: no se vuelve a pintar al hacer scroll */
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(38rem 28rem at 8% 12%, rgba(47, 82, 64, 0.16), transparent 70%),
+    radial-gradient(34rem 26rem at 92% 30%, rgba(43, 179, 163, 0.14), transparent 70%),
+    radial-gradient(40rem 30rem at 80% 92%, rgba(226, 164, 131, 0.24), transparent 70%),
+    radial-gradient(36rem 28rem at 15% 85%, rgba(210, 166, 90, 0.18), transparent 70%), var(--crema);
+  transform: translateZ(0);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  line-height: 1.15;
+}
+
+/* Burbuja de vidrio clara: tarjetas, detalle, campos, estados */
+.tarjeta,
+.detalle,
+.campo,
+.estado {
+  background: var(--vidrio);
+  border: 1px solid var(--vidrio-borde);
+  box-shadow: var(--vidrio-sombra);
+  backdrop-filter: var(--vidrio-desenfoque);
+  -webkit-backdrop-filter: var(--vidrio-desenfoque);
+}
+
+/* Burbuja de vidrio oscura: elementos dentro del encabezado verde */
+.pestanas,
+.marca,
+.encabezado__datos,
+.subtitulo {
+  background: var(--vidrio-oscuro);
+  border: 1px solid var(--vidrio-oscuro-borde);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 18px 36px -18px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+
+/* ---------- Encabezado: Guanacaste de noche, bosque y agua de piscina ---------- */
+.encabezado {
+  padding: 1.25rem 1.25rem 0;
+}
+
+.encabezado__vidrio {
+  position: relative;
+  overflow: hidden;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 1.75rem;
+  border-radius: 32px;
+  color: var(--crema-clara);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 40px 80px -30px rgba(29, 53, 39, 0.75);
+  background:
+    repeating-linear-gradient(180deg, rgba(43, 179, 163, 0.18) 0 1px, transparent 1px 8px) 0 100% /
+      100% 34% no-repeat,
+    radial-gradient(28rem 18rem at 50% 62%, rgba(210, 166, 90, 0.45), transparent 70%),
+    radial-gradient(30rem 16rem at 50% 100%, rgba(43, 179, 163, 0.35), transparent 70%),
+    linear-gradient(180deg, #13241a 0%, var(--bosque) 45%, var(--bosque-claro) 100%);
+}
+
+/* Reflejo de luz en la parte superior de la burbuja grande */
+.encabezado__vidrio::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent);
+  pointer-events: none;
+}
+
+/* El sol: anillo dorado con el logo en el centro */
+.sol {
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  width: min(340px, 60vw);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(210, 166, 90, 0.6);
+  box-shadow: inset 0 0 50px rgba(210, 166, 90, 0.12);
+  pointer-events: none;
+}
+
+.sol__medallon {
+  width: 60%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  /* Esfera 3D color crema: luz arriba a la izquierda y sombra abajo */
+  background:
+    radial-gradient(circle at 32% 25%, #ffffff 0%, rgba(255, 255, 255, 0) 45%),
+    radial-gradient(circle at 50% 50%, #f4efe6 55%, #d8ccb8 100%);
+  box-shadow:
+    inset -10px -14px 24px rgba(107, 90, 76, 0.28),
+    inset 8px 10px 18px rgba(255, 255, 255, 0.9),
+    0 0 0 8px rgba(255, 255, 255, 0.08),
+    0 30px 60px -10px rgba(10, 20, 14, 0.7),
+    0 0 90px rgba(210, 166, 90, 0.45);
+}
+
+.sol__medallon img {
+  width: 80%;
+  height: auto;
+}
+
+.encabezado__contenido {
+  position: relative;
+}
+
+.encabezado__barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Nombre de la marca en una cápsula de vidrio con un punto de luz */
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0.5rem 1.1rem 0.5rem 0.8rem;
+  border-radius: 999px;
+  font-family: var(--letra-serif);
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.marca__punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--degradado-dorado);
+  box-shadow: 0 0 12px rgba(210, 166, 90, 0.9);
+}
+
+/* Datos de la API en una burbuja pequeña */
+.encabezado__datos {
+  list-style: none;
+  margin: 0;
+  padding: 0.7rem 1rem;
+  border-radius: 18px;
+  font-family: var(--letra-mono);
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: rgba(251, 248, 242, 0.7);
+}
+
+.encabezado__datos li:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--crema-clara);
+}
+
+.encabezado__datos li:not(:first-child) {
+  padding-left: calc(7px + 0.5rem);
+}
+
+/* Punto turquesa que "late" para indicar que los datos son en vivo */
+.punto-vivo {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--turquesa);
+  animation: latir 2s ease-out infinite;
+}
+
+@keyframes latir {
+  0% {
+    box-shadow: 0 0 0 0 rgba(43, 179, 163, 0.7);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px rgba(43, 179, 163, 0);
+  }
+}
+
+.encabezado__principal {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 5.5rem 0 2rem;
+}
+
+/* Título en serif, como la página oficial */
+.encabezado h1 {
+  font-family: var(--letra-serif);
+  font-size: clamp(3rem, 8.5vw, 6rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  text-shadow: 0 8px 30px rgba(10, 20, 14, 0.5);
+}
+
+/* Frase descriptiva en una burbuja de vidrio */
+.subtitulo {
+  margin: 0;
+  max-width: 32ch;
+  padding: 1rem 1.25rem;
+  border-radius: 22px;
+  line-height: 1.55;
+  color: rgba(251, 248, 242, 0.9);
+}
+
+/* ---------- Pestañas: cápsula de vidrio con indicador que se desliza ---------- */
+.pestanas {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.3rem;
+  border-radius: 999px;
+}
+
+/* La "gota" dorada que se mueve de una pestaña a la otra */
+.pestanas::before {
+  content: '';
+  position: absolute;
+  top: 0.3rem;
+  bottom: 0.3rem;
+  left: 0.3rem;
+  width: calc(50% - 0.3rem);
+  border-radius: 999px;
+  background: var(--degradado-dorado);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 8px 20px -6px rgba(210, 166, 90, 0.7);
+  transition: transform 0.45s var(--suave);
+}
+
+.pestanas--extras::before {
+  transform: translateX(100%);
+}
+
+.pestana {
+  position: relative;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.6rem 1.25rem;
+  font: inherit;
+  font-weight: 500;
+  background: transparent;
+  color: rgba(251, 248, 242, 0.75);
+  cursor: pointer;
+  transition: color 0.3s var(--suave);
+}
+
+.pestana:hover {
+  color: var(--crema-clara);
+}
+
+.pestana--activa,
+.pestana--activa:hover {
+  color: var(--cafe);
+}
+
+/* ---------- Contenido ---------- */
+.contenido {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.distribucion {
+  animation: aparecer 0.5s var(--suave) backwards;
+}
+
+.distribucion--detalle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.filtros {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.campo {
+  flex: 1 1 260px;
+  padding: 0.85rem 1.25rem;
+  font: inherit;
+  color: var(--cafe);
+  border-radius: 999px;
+}
+
+.campo::placeholder {
+  color: var(--cafe-suave);
+}
+
+/* ---------- Selector desplegable ---------- */
+.selector {
+  position: relative;
+  flex: 1 1 260px;
+}
+
+.selector__boton {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.3s var(--suave);
+}
+
+.selector__boton:hover,
+.selector--abierto .selector__boton {
+  background: var(--vidrio-fuerte);
+}
+
+/* Flecha dibujada con bordes; gira al abrir */
+.selector__flecha {
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.35s var(--suave);
+}
+
+.selector--abierto .selector__flecha {
+  transform: translateY(4px) rotate(-135deg);
+}
+
+.selector__lista {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  max-height: 290px;
+  overflow-y: auto;
+  border-radius: 24px;
+  background: var(--crema-clara);
+  border: 1px solid #ffffff;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 30px 60px -18px rgba(43, 30, 22, 0.45);
+  transform-origin: top center;
+  animation: desplegar 0.3s var(--suave) backwards;
+}
+
+.selector__opcion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  border-radius: 16px;
+  color: var(--cafe-suave);
+  cursor: pointer;
+  transition:
+    background 0.2s var(--suave),
+    color 0.2s var(--suave);
+}
+
+.selector__opcion--resaltada {
+  color: var(--cafe);
+  background: rgba(47, 82, 64, 0.08);
+}
+
+.selector__opcion--elegida {
+  color: var(--bosque);
+  font-weight: 600;
+}
+
+.selector__marca {
+  color: var(--turquesa);
+  font-weight: 700;
+}
+
+.contador {
+  margin: 0.9rem 0 1rem 0.5rem;
+  font-family: var(--letra-mono);
+  font-size: 0.75rem;
+  color: var(--cafe-suave);
+}
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+  perspective: 1200px;
+}
+
+/* ---------- Tarjetas: burbujas con profundidad 3D ---------- */
+.tarjeta {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 28px;
+  transition:
+    transform 0.5s var(--suave),
+    box-shadow 0.5s var(--suave),
+    border-color 0.3s var(--suave),
+    background 0.3s var(--suave);
+  will-change: transform;
+  animation: aparecer 0.6s var(--suave) backwards;
+}
+
+/* Las tarjetas entran una tras otra */
+.grilla > :nth-child(2) {
+  animation-delay: 0.06s;
+}
+.grilla > :nth-child(3) {
+  animation-delay: 0.12s;
+}
+.grilla > :nth-child(4) {
+  animation-delay: 0.18s;
+}
+.grilla > :nth-child(5) {
+  animation-delay: 0.24s;
+}
+.grilla > :nth-child(n + 6) {
+  animation-delay: 0.3s;
+}
+
+/* Brillo diagonal que da sensación de vidrio curvo */
+.tarjeta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.tarjeta > * {
+  position: relative;
+}
+
+.tarjeta:hover {
+  transform: translateY(-6px) rotateX(4deg);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 36px 60px -24px rgba(43, 30, 22, 0.5);
+}
+
+.tarjeta--activa {
+  background: var(--vidrio-fuerte);
+  border-color: var(--dorado-claro);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 0 0 1px var(--dorado-claro),
+    0 24px 50px -18px rgba(168, 121, 43, 0.55);
+}
+
+.tarjeta h3 {
+  font-family: var(--letra-serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.tarjeta .boton {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.producto {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--dorado);
+}
+
+.precio {
+  margin: 0;
+  font-family: var(--letra-serif);
+  font-size: 1.85rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--bosque-claro);
+}
+
+.descripcion {
+  margin: 0;
+  color: var(--cafe-suave);
+}
+
+.meta {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--cafe-suave);
+}
+
+/* ---------- Detalle: burbuja grande ---------- */
+.detalle {
+  position: sticky;
+  top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem;
+  border-radius: 32px;
+  background: var(--vidrio-fuerte);
+  animation: entrarDerecha 0.55s var(--suave) backwards;
+}
+
+.detalle__encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detalle__encabezado h2 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cafe-suave);
+}
+
+.detalle h3 {
+  font-family: var(--letra-serif);
+  font-size: 2.1rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.detalle h4 {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: var(--dorado);
+}
+
+.servicios {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Cada servicio es una mini burbuja */
+.servicios li {
+  display: flex;
+  flex-direction: column;
+  padding: 0.7rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #ffffff;
+  box-shadow: 0 8px 18px -14px rgba(43, 30, 22, 0.4);
+  animation: aparecer 0.5s var(--suave) backwards;
+}
+
+.servicios li:nth-child(2) {
+  animation-delay: 0.04s;
+}
+.servicios li:nth-child(3) {
+  animation-delay: 0.08s;
+}
+.servicios li:nth-child(4) {
+  animation-delay: 0.12s;
+}
+.servicios li:nth-child(5) {
+  animation-delay: 0.16s;
+}
+.servicios li:nth-child(n + 6) {
+  animation-delay: 0.2s;
+}
+
+.servicios span {
+  color: var(--cafe-suave);
+  font-size: 0.9rem;
+}
+
+/* ---------- Botones: cápsula café como el "Cotizar" de la página oficial ---------- */
+.boton {
+  padding: 0.65rem 1.3rem;
+  font: inherit;
+  font-weight: 500;
+  color: var(--crema-clara);
+  background: linear-gradient(180deg, #3d2b20, var(--cafe));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 10px 22px -10px rgba(43, 30, 22, 0.7);
+  transition:
+    transform 0.35s var(--suave),
+    box-shadow 0.35s var(--suave),
+    background 0.35s var(--suave);
+}
+
+.boton:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, var(--bosque-claro), var(--bosque));
+}
+
+.boton:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.boton--secundario {
+  color: var(--cafe);
+  background: var(--vidrio);
+  border: 1px solid var(--vidrio-borde);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 8px 18px -12px rgba(43, 30, 22, 0.4);
+}
+
+.boton--secundario:hover {
+  color: var(--cafe);
+  background: #ffffff;
+}
+
+.boton:focus-visible,
+.pestana:focus-visible,
+.campo:focus-visible {
+  outline: 3px solid var(--turquesa);
+  outline-offset: 3px;
+}
+
+/* ---------- Estados: cargando, error y sin resultados ---------- */
+.estado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2.75rem 1.5rem;
+  text-align: center;
+  color: var(--cafe-suave);
+  border-radius: 28px;
+  animation: aparecer 0.45s var(--suave) backwards;
+}
+
+.estado p {
+  margin: 0;
+}
+
+.estado--error {
+  border-color: rgba(180, 35, 24, 0.35);
+  background: rgba(180, 35, 24, 0.06);
+  color: var(--error);
+}
+
+.estado__titulo {
+  font-weight: 600;
+  color: var(--cafe);
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border: 4px solid rgba(43, 30, 22, 0.1);
+  border-top-color: var(--bosque-claro);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+/* ---------- Animaciones ---------- */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes entrarDerecha {
+  from {
+    opacity: 0;
+    transform: translateX(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes desplegar {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Pie ---------- */
+.pie {
+  padding: 2rem 1.5rem 2.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--cafe-suave);
+}
+
+/* ---------- Acciones del encabezado: pestañas + botón de cotizar ---------- */
+.encabezado__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.boton--cotizar {
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--cafe);
+  background: var(--crema-clara);
+  border-color: #ffffff;
+}
+
+.boton--cotizar:hover {
+  color: var(--crema-clara);
+}
+
+/* ---------- Encabezado de sección: "01 / Paquetes" como la página oficial ---------- */
+.intro {
+  margin-bottom: 1.5rem;
+}
+
+.intro__numero {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dorado);
+}
+
+.intro h2 {
+  font-family: var(--letra-serif);
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.intro__texto {
+  margin: 0.6rem 0 0;
+  max-width: 52ch;
+  color: var(--cafe-suave);
+}
+
+/* ---------- Lo que incluye cada paquete, en mini cápsulas ---------- */
+.incluye {
+  margin-top: 0.25rem;
+}
+
+.incluye__titulo {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dorado);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  color: var(--bosque);
+  background: rgba(47, 82, 64, 0.08);
+  border: 1px solid rgba(47, 82, 64, 0.12);
+}
+
+.chips .chips__mas {
+  color: var(--dorado);
+  background: rgba(210, 166, 90, 0.12);
+  border-color: rgba(210, 166, 90, 0.3);
+}
+
+/* ---------- Pie con los datos reales de Villa Peñas ---------- */
+.pie p {
+  margin: 0.2rem 0;
+}
+
+.pie__marca {
+  font-family: var(--letra-serif);
+  font-size: 1.25rem;
+  color: var(--cafe);
+}
+
+.pie__nota {
+  font-family: var(--letra-mono);
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .spinner {
+    animation: girar 3s linear infinite !important;
+  }
+
+  .tarjeta:hover,
+  .boton:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 800px) {
+  .distribucion--detalle {
+    grid-template-columns: 1fr;
+  }
+
+  .detalle {
+    position: static;
+    order: -1;
+  }
+
+  .encabezado__vidrio {
+    padding: 1.25rem;
+    border-radius: 26px;
+  }
+
+  .encabezado__principal {
+    padding-top: 2rem;
+  }
+
+  /* En pantallas angostas el logo pasa arriba, centrado, para no tapar nada */
+  .sol {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 170px;
+    margin: 0 auto 1.25rem;
+    transform: none;
+  }
+}
