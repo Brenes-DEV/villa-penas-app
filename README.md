@@ -6,7 +6,7 @@ Desarrollo de una interfaz que consume una API REST pública.
 - **Estudiante:** Deiby Emmanuel Brenes Sandino
 - **Tecnologías:** React 19 + TypeScript + Vite 8
 - **API:** https://villa-penas-production.up.railway.app (documentación Swagger en `/api/docs`)
-- **Repositorio:** _(pegar aquí el enlace de GitHub)_
+- **Repositorio:** https://github.com/Brenes-DEV/villa-penas-app
 
 Aplicación web para que un cliente de Villa Peñas (espacio para eventos en Chirco, Santa Cruz,
 Guanacaste) explore los **paquetes** disponibles, vea **todo lo que incluye** cada uno y revise los
